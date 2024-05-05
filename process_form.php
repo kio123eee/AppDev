@@ -1,13 +1,13 @@
 <?php
 // Include the database connection file
-include 'db_config.php';
+include 'db_config.php'; // Adjust the path as per your file structure
 
 // Check if the form was submitted
-if(isset($_POST['full_name']) && isset($_POST['student_number']) && isset($_POST['contact_number']) && isset($_POST['date'])){
+if(isset($_POST['full_name'], $_POST['student_number'], $_POST['contact_number'], $_POST['date'])){
    // Sanitize and validate input data
-   $full_name = trim(filter_var($_POST['full_name'], FILTER_SANITIZE_STRING));
-   $student_number = trim(filter_var($_POST['student_number'], FILTER_SANITIZE_NUMBER_INT));
-   $contact_number = trim(filter_var($_POST['contact_number'], FILTER_SANITIZE_NUMBER_INT));
+   $full_name = filter_var($_POST['full_name'], FILTER_SANITIZE_STRING);
+   $student_number = filter_var($_POST['student_number'], FILTER_SANITIZE_NUMBER_INT);
+   $contact_number = filter_var($_POST['contact_number'], FILTER_SANITIZE_NUMBER_INT);
    $date = $_POST['date']; // No need to sanitize date input
 
    // Prepare and execute the SQL query to insert data into the database
