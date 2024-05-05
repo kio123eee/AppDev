@@ -7,13 +7,20 @@ $message = '';
 
 if(isset($_POST['submit'])){
    $username = $_POST['username'];
-   $username = filter_var($username, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+   $username = trim(filter_var($username, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
    $password = sha1($_POST['password']);
-   $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+   $password = trim(filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+
+   // Debugging output
+   echo "Entered Username: $username<br>";
+   echo "Entered Password: $password<br>";
 
    $select_user = $conn->prepare("SELECT * FROM `users` WHERE username = ? AND password = ?");
    $select_user->execute([$username, $password]);
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
+
+   // Debugging output
+   echo "Rows Found: " . $select_user->rowCount() . "<br>";
 
    if($row){ // Check if a row is fetched, indicating successful login
       $_SESSION['id'] = $row['id']; // Assuming 'id' is the primary key of the 'users' table
