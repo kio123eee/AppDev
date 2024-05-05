@@ -1,30 +1,3 @@
-<?php
-session_start();
-include 'db_config.php';
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-$message = ''; // Initialize message variable
-
-if (isset($_POST['submit'])) {
-    $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
-    $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
-
-    $select_user = $conn->prepare("SELECT * FROM `users` WHERE username = ? AND password = ?");
-    $select_user->execute([$username, $password]);
-    $row = $select_user->fetch(PDO::FETCH_ASSOC);
-
-    if ($select_user->rowCount() > 0) {
-        $_SESSION['id'] = $row['id'];
-        header('location: dashboard.php');
-        exit; // Add exit after header redirect to prevent further execution
-    } else {
-        $message = 'Incorrect username or password!';
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,7 +51,7 @@ if (isset($_POST['submit'])) {
             echo '<p class="error">' . $message . '</p>';
         }
         ?>
-        <form method="POST" action="">
+        <form method="POST" action="login.php">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required><br>
             <label for="password">Password:</label>
