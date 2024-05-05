@@ -1,9 +1,9 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 session_start();
 include 'db_config.php';
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 $message = ''; // Initialize message variable
 
@@ -78,7 +78,7 @@ if (isset($_POST['submit'])) {
             echo '<p class="error">' . $message . '</p>';
         }
         ?>
-        <form method="POST" action="index.php">
+        <form method="POST" action="">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required><br>
             <label for="password">Password:</label>
