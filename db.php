@@ -1,5 +1,5 @@
 <?php
-$servername = "roundhouse.proxy.rlwy.net";
+$servername = "mysql:host=viaduct.proxy.rlwy.net;port=15223;dbname=railway";
 $username = "root";
 $password = "TSyEAqhggHUXqkiRPjuDYvHEhNeRyDUu";
 $dbname = "railway";
