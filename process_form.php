@@ -14,17 +14,12 @@ if(isset($_POST['full_name']) && isset($_POST['student_number']) && isset($_POST
    $insert_query = $conn->prepare("INSERT INTO lost_found_list (full_name, student_number, contact_number, date_added) VALUES (?, ?, ?, ?)");
    $insert_query->execute([$full_name, $student_number, $contact_number, $date]);
 
-   // Check if the insertion was successful
-   if($insert_query){
-      $message = 'Data added to Lost and Found list successfully!';
-      header("location: home.php?message=$message"); // Redirect back to home.php with a success message
-      exit;
-   }else{
-      $message = 'Error adding data to Lost and Found list.';
-   }
+   // Redirect back to home.php after successful insertion
+   header("location: home.php");
+   exit; // Stop further script execution
 }else{
-   $message = 'Form data is incomplete. Please fill out all fields.';
-   header("location: home.php?message=$message"); // Redirect back to home.php with an error message
-   exit;
+   // Redirect back to home.php if form data is incomplete
+   header("location: home.php");
+   exit; // Stop further script execution
 }
 ?>
