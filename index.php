@@ -1,30 +1,21 @@
 <?php
 session_start();
 
-include 'components/connect.php';
+include 'db_config.php';
 
 $message = '';
 
+// Hardcoded username and password for testing
+$hardcoded_username = 'admin';
+$hardcoded_password = 'admin'; // Assuming this is the plaintext password
+
 if(isset($_POST['submit'])){
    $username = $_POST['username'];
-   $username = trim(filter_var($username, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-   $password = sha1($_POST['password']);
-   $password = trim(filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+   $password = $_POST['password'];
 
-   // Debugging output
-   echo "Entered Username: $username<br>";
-   echo "Entered Password: $password<br>";
-
-   $select_user = $conn->prepare("SELECT * FROM `users` WHERE username = ? AND password = ?");
-   $select_user->execute([$username, $password]);
-   $row = $select_user->fetch(PDO::FETCH_ASSOC);
-
-   // Debugging output
-   echo "SQL Query: SELECT * FROM `users` WHERE username = '$username' AND password = '$password'<br>";
-   echo "Rows Found: " . $select_user->rowCount() . "<br>";
-
-   if($row){ // Check if a row is fetched, indicating successful login
-      $_SESSION['id'] = $row['id']; // Assuming 'id' is the primary key of the 'users' table
+   if($username === $hardcoded_username && $password === $hardcoded_password){
+      // Successful login
+      $_SESSION['username'] = $username;
       header('location: home.php'); // Redirect to home.php after successful login
       exit;
    }else{
