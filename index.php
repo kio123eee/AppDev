@@ -1,22 +1,15 @@
 <?php
-session_start();
-// Include your database connection file (e.g., db_config.php)
-include 'db_config.php';
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+session_start();
+include 'db_config.php';
 
 $message = ''; // Initialize message variable
 
 if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $username = filter_var($username, 513); // Equivalent to FILTER_SANITIZE_STRING
-    $password = $_POST['password'];
-    $password = filter_var($password, 513); // Equivalent to FILTER_SANITIZE_STRING
-
-    // Hash the password (if needed) before comparing
-    // $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Uncomment if storing hashed passwords in the database
+    $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+    $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
 
     $select_user = $conn->prepare("SELECT * FROM `users` WHERE username = ? AND password = ?");
     $select_user->execute([$username, $password]);
