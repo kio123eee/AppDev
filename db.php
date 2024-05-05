@@ -1,11 +1,12 @@
 <?php
-$servername = "mysql:host=viaduct.proxy.rlwy.net;port=15223;dbname=railway";
-$username = "root";
-$password = "TSyEAqhggHUXqkiRPjuDYvHEhNeRyDUu";
-$dbname = "railway";
+$servername = "viaduct.proxy.rlwy.net";  // Hostname or IP address
+$port = 15223;  // Port number
+$username = "root";  // Database username
+$password = "TSyEAqhggHUXqkiRPjuDYvHEhNeRyDUu";  // Database password
+$dbname = "railway";  // Database name
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
 
 // Check connection
 if ($conn->connect_error) {
