@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
             echo '<p class="error">' . $message . '</p>';
         }
         ?>
-        <form method="POST" action="">
+        <form method="POST" action="dashboard.php">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required><br>
             <label for="password">Password:</label>
