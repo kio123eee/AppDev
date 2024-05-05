@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "your_username";
-$password = "your_password";
-$dbname = "your_database_name";
+$servername = "roundhouse.proxy.rlwy.net";
+$username = "root";
+$password = "TSyEAqhggHUXqkiRPjuDYvHEhNeRyDUu";
+$dbname = "railway";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
