@@ -3,6 +3,9 @@ session_start();
 // Include your database connection file (e.g., db_config.php)
 include 'db_config.php';
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $entered_password = $_POST['password'];
