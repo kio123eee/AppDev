@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Student Information System</h1>
-    
+
     <!-- Form for adding new student -->
     <h2>Add Student</h2>
     <form action="functions.php?action=add" method="POST">
@@ -17,18 +17,9 @@
         <button type="submit">Add Student</button>
     </form>
 
-    <!-- Form for editing student -->
-    <h2>Edit Student</h2>
-    <form action="functions.php?action=edit" method="POST">
-        <input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>">
-        <input type="text" name="fullname" placeholder="Full Name" required>
-        <input type="text" name="studentnumber" placeholder="Student Number" required>
-        <input type="text" name="cellphone" placeholder="Cellphone Number" required>
-        <button type="submit">Edit Student</button>
-    </form>
+    <!-- Redirect link to view students list -->
+    <a href="students_list.php">View Students List</a>
 
-    <!-- List of students -->
-    <h2>Students List</h2>
-    <?php include 'functions.php'; ?>
+    <!-- Include any success/error messages here if needed -->
 </body>
 </html>
