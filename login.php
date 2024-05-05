@@ -1,23 +1,25 @@
 <?php
 session_start();
-include 'db_config.php'; // Include your database connection file
+// Include your database connection file (e.g., db_config.php)
+include 'db_config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $entered_password = $_POST['password'];
 
-    // Query the database to check credentials
-    $sql = "SELECT * FROM users WHERE username = :username";
-    $stmt = $conn->prepare($sql);
+    // Query the database to get the hashed password based on the entered username
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
     $stmt->bindParam(':username', $username);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user && password_verify($password, $user['password'])) {
+    if ($user && password_verify($entered_password, $user['password'])) {
+        // Passwords match, set session variables and redirect to dashboard
         $_SESSION['username'] = $username;
         header("Location: dashboard.php");
         exit;
     } else {
+        // Passwords do not match, display error message or redirect back to login page
         $error_message = "Invalid username or password.";
     }
 }
