@@ -3,32 +3,28 @@ session_start();
 // Include your database connection file (e.g., db_config.php)
 include 'db_config.php';
 
-if(isset($_SESSION['id'])){
-   $id = $_SESSION['id'];
-} else {
-   $id = '';
-}
+$message = ''; // Initialize message variable
 
-if(isset($_POST['submit'])){
-   $username = $_POST['username'];
-   $username = filter_var($username, FILTER_SANITIZE_STRING);
-   $password = $_POST['password'];
-   $password = filter_var($password, FILTER_SANITIZE_STRING);
+if (isset($_POST['submit'])) {
+    $username = $_POST['username'];
+    $username = filter_var($username, FILTER_SANITIZE_STRING);
+    $password = $_POST['password'];
+    $password = filter_var($password, FILTER_SANITIZE_STRING);
 
-   // Hash the password (if needed) before comparing
-   // $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Uncomment if storing hashed passwords in the database
+    // Hash the password (if needed) before comparing
+    // $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Uncomment if storing hashed passwords in the database
 
-   $select_user = $conn->prepare("SELECT * FROM `users` WHERE username = ? AND passwords = ?");
-   $select_user->execute([$username, $password]);
-   $row = $select_user->fetch(PDO::FETCH_ASSOC);
+    $select_user = $conn->prepare("SELECT * FROM `users` WHERE username = ? AND passwords = ?");
+    $select_user->execute([$username, $password]);
+    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
-   if($select_user->rowCount() > 0){
-      $_SESSION['id'] = $row['id'];
-      header('location:dashboard.php');
-      exit; // Add exit after header redirect to prevent further execution
-   } else {
-      $message[] = 'Incorrect username or password!';
-   }
+    if ($select_user->rowCount() > 0) {
+        $_SESSION['id'] = $row['id'];
+        header('location: dashboard.php');
+        exit; // Add exit after header redirect to prevent further execution
+    } else {
+        $message = 'Incorrect username or password!';
+    }
 }
 ?>
 
@@ -71,17 +67,26 @@ if(isset($_POST['submit'])){
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Mapua Makati Lost and Found System</h1>
+        <?php
+        if ($message) {
+            echo '<p class="error">' . $message . '</p>';
+        }
+        ?>
         <form method="POST" action="">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required><br>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required><br>
-            <input type="submit" value="Login">
+            <input type="submit" name="submit" value="Login">
         </form>
     </div>
 </body>
