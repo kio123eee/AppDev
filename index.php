@@ -41,7 +41,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Lost and Found System</h1>
+        <h1>Mapua Makati Lost and Found System</h1>
         <form method="POST" action="login.php">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required><br>
