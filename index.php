@@ -1,25 +1,42 @@
+<?php include 'db_config.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapua Makati Lost and Found Information System</title>
+    <title>Lost Items</title>
 </head>
 <body>
-    <h1>Student Information System</h1>
+    <h1>Lost Items</h1>
 
-    <!-- Form for adding new student -->
-    <h2>Add Student</h2>
-    <form action="functions.php?action=add" method="POST">
-        <input type="text" name="fullname" placeholder="Full Name" required>
-        <input type="text" name="studentnumber" placeholder="Student Number" required>
-        <input type="text" name="cellphone" placeholder="Cellphone Number" required>
-        <button type="submit">Add Student</button>
+    <!-- Form to add new item -->
+    <form method="POST" action="add_item.php">
+        <input type="text" name="student_name" placeholder="Student Name" required><br>
+        <input type="text" name="student_number" placeholder="Student Number" required><br>
+        <input type="text" name="contact_number" placeholder="Contact Number" required><br>
+        <textarea name="item_description" placeholder="Item Description" required></textarea><br>
+        <input type="submit" value="Add Item">
     </form>
 
-    <!-- Redirect link to view students list -->
-    <a href="students_list.php">View Students List</a>
+    <!-- Display existing items -->
+    <?php
+    $sql = "SELECT * FROM lost_items";
+    $result = $conn->query($sql);
 
-    <!-- Include any success/error messages here if needed -->
+    if ($result->num_rows > 0) {
+        echo "<h2>Existing Items</h2>";
+        while ($row = $result->fetch_assoc()) {
+            echo "<p>Student Name: " . $row['student_name'] . "</p>";
+            echo "<p>Student Number: " . $row['student_number'] . "</p>";
+            echo "<p>Contact Number: " . $row['contact_number'] . "</p>";
+            echo "<p>Item Description: " . $row['item_description'] . "</p>";
+            echo "<hr>";
+        }
+    } else {
+        echo "No records found";
+    }
+    ?>
+
 </body>
 </html>
