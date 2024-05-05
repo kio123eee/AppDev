@@ -77,7 +77,7 @@ if(isset($_POST['submit'])){
 <body>
    
 <section class="form-container">
-   <form action="" method="post">
+   <form action="home.php" method="post">
       <h3>Login to Lost and Found</h3>
       <?php if(!empty($message)) echo '<p class="error">' . $message . '</p>'; ?>
       <input type="text" name="username" required placeholder="Enter your username" class="box" maxlength="50">
