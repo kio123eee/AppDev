@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Information System</title>
+    <title>Mapua Makati Lost and Found Information System</title>
 </head>
 <body>
     <h1>Student Information System</h1>
