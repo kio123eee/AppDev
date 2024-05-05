@@ -1,6 +1,6 @@
 <?php
 // Include the database connection file
-include 'db_config.php';
+include 'components/connect.php';
 
 // Check if the form was submitted
 if(isset($_POST['full_name']) && isset($_POST['student_number']) && isset($_POST['contact_number']) && isset($_POST['date'])){
