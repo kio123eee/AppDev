@@ -1,21 +1,21 @@
 <?php
 session_start();
 
-include 'db_config.php';
+include 'components/connect.php';
 
 $message = '';
 
 if(isset($_POST['submit'])){
    $username = $_POST['username'];
-   $username = filter_var($username, FILTER_SANITIZE_STRING);
+   $username = filter_var($username, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
    $password = sha1($_POST['password']);
-   $password = filter_var($password, FILTER_SANITIZE_STRING);
+   $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
    $select_user = $conn->prepare("SELECT * FROM `users` WHERE username = ? AND password = ?");
    $select_user->execute([$username, $password]);
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
-   if($select_user->rowCount() > 0){
+   if($row){ // Check if a row is fetched, indicating successful login
       $_SESSION['id'] = $row['id']; // Assuming 'id' is the primary key of the 'users' table
       header('location: home.php'); // Redirect to home.php after successful login
       exit;
