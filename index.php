@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Test Database Connection</h1>
-    <?php include 'test_connection.php'; ?>
+    <?php include 'db_config.php'; ?>
     <p><?php echo $connection_status; ?></p>
 </body>
 </html>
