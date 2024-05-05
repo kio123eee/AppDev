@@ -1,55 +1,92 @@
 <?php
-// Include database configuration file
+session_start();
+
 include 'db_config.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+$message = '';
 
-    try {
-        // Create a PDO connection to MySQL using db_config.php credentials
-        $conn = new PDO($db_name, $user_name, $user_password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+if(isset($_POST['submit'])){
+   $username = $_POST['username'];
+   $username = filter_var($username, FILTER_SANITIZE_STRING);
+   $password = sha1($_POST['password']);
+   $password = filter_var($password, FILTER_SANITIZE_STRING);
 
-        // Prepare and execute SQL query to fetch user data
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
-        $stmt->execute(['username' => $username]);
-        $user = $stmt->fetch();
+   $select_user = $conn->prepare("SELECT * FROM `users` WHERE username = ? AND password = ?");
+   $select_user->execute([$username, $password]);
+   $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($password, $user['password'])) {
-            // Login successful, set session variables
-            session_start();
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            header('Location: dashboard.php');
-            exit();
-        } else {
-            $error = "Incorrect username or password";
-        }
-    } catch (PDOException $e) {
-        $error = "Connection failed: " . $e->getMessage();
-    }
+   if($select_user->rowCount() > 0){
+      $_SESSION['id'] = $row['id']; // Assuming 'id' is the primary key of the 'users' table
+      header('location: home.php'); // Redirect to home.php after successful login
+      exit;
+   }else{
+      $message = 'Incorrect username or password!';
+   }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Login - Lost and Found</title>
+   <style>
+      body {
+         font-family: Arial, sans-serif;
+         background-color: #f0f0f0;
+         padding: 20px;
+      }
+      .form-container {
+         max-width: 400px;
+         margin: 50px auto;
+         background-color: #fff;
+         border-radius: 8px;
+         padding: 20px;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .form-container h3 {
+         text-align: center;
+         margin-bottom: 20px;
+      }
+      .box {
+         width: 100%;
+         padding: 10px;
+         margin-bottom: 15px;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+         box-sizing: border-box;
+      }
+      .btn {
+         width: 100%;
+         padding: 10px;
+         background-color: #007bff;
+         color: #fff;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+      }
+      .btn:hover {
+         background-color: #0056b3;
+      }
+      .error {
+         color: red;
+         margin-bottom: 10px;
+         text-align: center;
+      }
+   </style>
 </head>
 <body>
-    <h2>Login</h2>
-    <?php if (isset($error)) : ?>
-        <p><?php echo $error; ?></p>
-    <?php endif; ?>
-    <form method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
-        <button type="submit">Login</button>
-    </form>
+   
+<section class="form-container">
+   <form action="" method="post">
+      <h3>Login to Lost and Found</h3>
+      <?php if(!empty($message)) echo '<p class="error">' . $message . '</p>'; ?>
+      <input type="text" name="username" required placeholder="Enter your username" class="box" maxlength="50">
+      <input type="password" name="password" required placeholder="Enter your password" class="box" maxlength="50">
+      <input type="submit" value="Login" name="submit" class="btn">
+   </form>
+</section>
+
 </body>
 </html>
