@@ -14,12 +14,12 @@ if(isset($_POST['full_name'], $_POST['student_number'], $_POST['contact_number']
    $insert_query = $conn->prepare("INSERT INTO lost_found_list (full_name, student_number, contact_number, date_added) VALUES (?, ?, ?, ?)");
    $insert_query->execute([$full_name, $student_number, $contact_number, $date]);
 
-   // Redirect back to home.php after successful insertion
-   header("location: home.php");
+   // Use JavaScript to redirect to home.php after successful insertion
+   echo '<script>window.location.href = "home.php";</script>';
    exit; // Stop further script execution
 }else{
-   // Redirect back to home.php if form data is incomplete
-   header("location: home.php");
+   // Use JavaScript to redirect to home.php if form data is incomplete
+   echo '<script>window.location.href = "home.php";</script>';
    exit; // Stop further script execution
 }
 ?>
