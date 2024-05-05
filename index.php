@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include 'components/connect.php';
+include 'db_config.php';
 
 $message = '';
 
