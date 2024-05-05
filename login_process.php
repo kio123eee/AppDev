@@ -16,7 +16,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         // Login successful, set session variables and redirect
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        header('Location: dashboard.php'); // Redirect to dashboard or any other page
+        header('Location: index.php'); // Redirect to dashboard or any other page
         exit();
     } else {
         // Invalid username or password
