@@ -3,27 +3,31 @@ session_start();
 // Include your database connection file (e.g., db_config.php)
 include 'db_config.php';
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+if(isset($_SESSION['id'])){
+   $id = $_SESSION['id'];
+} else {
+   $id = '';
+}
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $entered_password = $_POST['password'];
+if(isset($_POST['submit'])){
+   $username = $_POST['username'];
+   $username = filter_var($username, FILTER_SANITIZE_STRING);
+   $password = $_POST['password'];
+   $password = filter_var($password, FILTER_SANITIZE_STRING);
 
-    // Query the database to get the hashed password based on the entered username
-    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
-    $stmt->bindParam(':username', $username);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+   // Hash the password (if needed) before comparing
+   // $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Uncomment if storing hashed passwords in the database
 
-    if ($user && password_verify($entered_password, $user['password'])) {
-        // Passwords match, set session variables and redirect to dashboard
-        $_SESSION['username'] = $username;
-        header("Location: dashboard.php");
-        exit;
-    } else {
-        // Passwords do not match, display error message or redirect back to login page
-        $error_message = "Invalid username or password.";
-    }
+   $select_user = $conn->prepare("SELECT * FROM `users` WHERE username = ? AND passwords = ?");
+   $select_user->execute([$username, $password]);
+   $row = $select_user->fetch(PDO::FETCH_ASSOC);
+
+   if($select_user->rowCount() > 0){
+      $_SESSION['id'] = $row['id'];
+      header('location:dashboard.php');
+      exit; // Add exit after header redirect to prevent further execution
+   } else {
+      $message[] = 'Incorrect username or password!';
+   }
 }
 ?>
