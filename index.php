@@ -7,14 +7,14 @@ $message = ''; // Initialize message variable
 
 if (isset($_POST['submit'])) {
     $username = $_POST['username'];
-    $username = filter_var($username, FILTER_SANITIZE_STRING);
+    $username = filter_var($username, 513); // Equivalent to FILTER_SANITIZE_STRING
     $password = $_POST['password'];
-    $password = filter_var($password, FILTER_SANITIZE_STRING);
+    $password = filter_var($password, 513); // Equivalent to FILTER_SANITIZE_STRING
 
     // Hash the password (if needed) before comparing
     // $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Uncomment if storing hashed passwords in the database
 
-    $select_user = $conn->prepare("SELECT * FROM `users` WHERE username = ? AND passwords = ?");
+    $select_user = $conn->prepare("SELECT * FROM `users` WHERE username = ? AND password = ?");
     $select_user->execute([$username, $password]);
     $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
