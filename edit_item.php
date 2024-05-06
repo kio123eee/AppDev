@@ -30,8 +30,8 @@ if(isset($_GET['id'])){
         $update_query = $conn->prepare("UPDATE lost_found_list SET full_name = ?, student_number = ?, contact_number = ?, date_added = ? WHERE id = ?");
         $update_query->execute([$full_name, $student_number, $contact_number, $date, $id]);
 
-        // Redirect to lists.php after successful update
-        header("Location: lists.php");
+        // Use JavaScript to redirect to lists.php after successful update
+        echo '<script>window.location.href = "lists.php";</script>';
         exit; // Stop further script execution
     }
 } else {
@@ -58,5 +58,13 @@ if(isset($_GET['id'])){
       <input type="date" name="date" value="<?php echo $item['date_added']; ?>" required placeholder="Date" class="box">
       <input type="submit" value="Update" name="update" class="btn">
    </form>
+
+   <!-- JavaScript back button -->
+   <button onclick="goBack()" class="btn">Go Back</button>
+   <script>
+      function goBack() {
+         window.history.back();
+      }
+   </script>
 </body>
 </html>
