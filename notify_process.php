@@ -1,3 +1,17 @@
+<?php
+require __DIR__ . '/vendor/autoload.php'; // Include the Twilio PHP SDK autoload file
+
+use Twilio\Rest\Client;
+
+// Twilio credentials
+$account_sid = 'ACa65a4fc4e39bb7377d4cb0e25bf6c6ea'; // Your Twilio Account SID
+$auth_token = '0163b291b5299da5b372ba748f18a80c'; // Your Twilio Auth Token
+$twilio_number = '+18288454547'; // Your Twilio phone number
+
+// Create a new Twilio client
+$client = new Client($account_sid, $auth_token);
+
+// Check if the form is submitted and the notify_item button is clicked
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['notify_item'])) {
     // Get item ID and contact number from the form submission
     $item_id = $_POST['item_id'];
@@ -28,3 +42,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['notify_item'])) {
     header("Location: lists.php");
     exit;
 }
+?>
