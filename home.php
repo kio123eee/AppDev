@@ -38,12 +38,18 @@
          border: none;
          border-radius: 5px;
          cursor: pointer;
+         margin-bottom: 10px; /* Added margin to separate the button */
       }
       .btn:hover {
          background-color: #0056b3;
       }
       .error-msg {
          color: red;
+         margin-top: 10px;
+         text-align: center;
+      }
+      .success-msg {
+         color: green;
          margin-top: 10px;
          text-align: center;
       }
@@ -70,6 +76,7 @@
          <input type="date" name="date" required placeholder="Date" class="box">
          <input type="submit" value="Submit" class="btn">
       </form>
+      <a href="lists.php" class="btn">View Lists</a> <!-- Added button to go to lists.php -->
    </section>
 </body>
 </html>
