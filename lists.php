@@ -32,10 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Lost and Found Lists</title>
-   <style>
+      <style>
       body {
            font-family: Arial, sans-serif;
            background-color: #f0f0f0;
@@ -85,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <th>Status</th>
             <th>Action</th>
             <th>Action</th> <!-- Added column for delete button -->
+            <th>Action</th> <!-- Added column for notify button -->
          </tr>
       </thead>
       <tbody>
@@ -109,6 +107,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                <form action="" method="post">
                   <input type="hidden" name="item_id" value="<?php echo $item['id']; ?>">
                   <button type="submit" name="delete_item">Delete</button>
+               </form>
+            </td>
+            <td>
+               <form action="notify_process.php" method="post"> <!-- Action to notify_process.php -->
+                  <input type="hidden" name="item_id" value="<?php echo $item['id']; ?>">
+                  <input type="hidden" name="contact_number" value="<?php echo $item['contact_number']; ?>">
+                  <button type="submit" name="notify_item">Notify</button>
                </form>
             </td>
          </tr>
