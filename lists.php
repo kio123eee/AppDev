@@ -18,6 +18,7 @@ $items = $select_query->fetchAll(PDO::FETCH_ASSOC);
 <body>
    <!-- Your HTML content for the lists page -->
    <h1>Lost and Found Lists</h1>
+   <a href="home.php" style="margin-bottom: 20px; display: inline-block;">Go Back to Home</a> <!-- Button to go back to home.php -->
    <table>
       <thead>
          <tr>
