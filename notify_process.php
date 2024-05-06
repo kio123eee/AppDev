@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/vendor/autoload.php'; // Include the Twilio PHP SDK autoload file
+require __DIR__ . 'autoload.php'; // Include the Twilio PHP SDK autoload file
 
 use Twilio\Rest\Client;
 
