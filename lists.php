@@ -13,7 +13,42 @@ $items = $select_query->fetchAll(PDO::FETCH_ASSOC);
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Lost and Found Lists</title>
-   <!-- Add your CSS stylesheets or CDN links here -->
+   <style>
+      body {
+         font-family: Arial, sans-serif;
+         background-color: #f0f0f0;
+         padding: 20px;
+      }
+      h1 {
+         color: #007bff; /* Heading color */
+      }
+      a {
+         color: #007bff; /* Link color */
+         text-decoration: none;
+      }
+      a:hover {
+         text-decoration: underline; /* Underline link on hover */
+      }
+      table {
+         width: 100%;
+         border-collapse: collapse;
+         margin-top: 20px;
+      }
+      th, td {
+         padding: 10px;
+         border: 1px solid #ccc;
+      }
+      th {
+         background-color: #007bff; /* Header background color */
+         color: #fff; /* Header text color */
+      }
+      tr:nth-child(even) {
+         background-color: #f0f0f0; /* Alternate row background color */
+      }
+      tr:hover {
+         background-color: #e0e0e0; /* Row hover background color */
+      }
+   </style>
 </head>
 <body>
    <!-- Your HTML content for the lists page -->
@@ -36,7 +71,7 @@ $items = $select_query->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo $item['student_number']; ?></td>
             <td><?php echo $item['contact_number']; ?></td>
             <td><?php echo $item['date_added']; ?></td>
-            <td><a href="edit_item.php?id=<?php echo $item['id']; ?>">Edit</a></td> <!-- Edit button linked to edit_item.php -->
+            <td><a href="edit_item.php?id=<?php echo $item['id']; ?>" style="background-color: #007bff; color: #fff; padding: 5px 10px; border-radius: 3px;">Edit</a></td> <!-- Edit button styled with background color and text color -->
          </tr>
          <?php endforeach; ?>
       </tbody>
