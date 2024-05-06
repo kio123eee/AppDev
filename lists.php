@@ -26,6 +26,7 @@ $items = $select_query->fetchAll(PDO::FETCH_ASSOC);
             <th>Student Number</th>
             <th>Contact Number</th>
             <th>Date Added</th>
+            <th>Action</th> <!-- Added column for edit button -->
          </tr>
       </thead>
       <tbody>
@@ -35,6 +36,7 @@ $items = $select_query->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo $item['student_number']; ?></td>
             <td><?php echo $item['contact_number']; ?></td>
             <td><?php echo $item['date_added']; ?></td>
+            <td><a href="edit_item.php?id=<?php echo $item['id']; ?>">Edit</a></td> <!-- Edit button linked to edit_item.php -->
          </tr>
          <?php endforeach; ?>
       </tbody>
