@@ -25,7 +25,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Lost and Found Lists</title>
-   <!-- Add your CSS stylesheets or CDN links here -->
+   <style>
+      body {
+         font-family: Arial, sans-serif;
+         background-color: #f0f0f0;
+         padding: 20px;
+      }
+      h1 {
+         color: #007bff; /* Heading color */
+      }
+      a {
+         color: #007bff; /* Link color */
+         text-decoration: none;
+      }
+      a:hover {
+         text-decoration: underline; /* Underline link on hover */
+      }
+      table {
+         width: 100%;
+         border-collapse: collapse;
+         margin-top: 20px;
+      }
+      th, td {
+         padding: 10px;
+         border: 1px solid #ccc;
+      }
+      th {
+         background-color: #007bff; /* Header background color */
+         color: #fff; /* Header text color */
+      }
+      tr:nth-child(even) {
+         background-color: #f0f0f0; /* Alternate row background color */
+      }
+      tr:hover {
+         background-color: #e0e0e0; /* Row hover background color */
+      }
+   </style>
 </head>
 <body>
    <!-- Your HTML content for the lists page -->
