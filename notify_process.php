@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/autoload.php'; // Include the Twilio PHP SDK autoload file
+include 'autoload.php';
 
 use Twilio\Rest\Client;
 
