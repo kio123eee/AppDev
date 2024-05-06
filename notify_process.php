@@ -1,5 +1,8 @@
 <?php
-include 'autoload.php';
+// Include Twilio SDK files
+require_once 'rest_Client.php';
+require_once 'http_Client.php';
+require_once 'Response.php';
 
 use Twilio\Rest\Client;
 
